@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>One Room Roguelike Prototype</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="game-shell">
+      <section class="hud" aria-label="game status">
+        <div class="hp-widget">
+          <span>HP</span>
+          <div class="hp-bar" aria-hidden="true"><div id="hpFill"></div></div>
+          <strong id="hpText">5 / 5</strong>
+        </div>
+        <div>Level <strong id="levelText">1</strong></div>
+        <div class="xp-widget">
+          <span>XP</span>
+          <div class="xp-bar" aria-hidden="true"><div id="xpFill"></div></div>
+          <strong id="xpText">0 / 5</strong>
+        </div>
+        <div>Gold <strong id="goldText">0</strong></div>
+        <div>Shards <strong id="shardText">0</strong></div>
+        <div>Wave <strong id="waveText">1</strong></div>
+        <div>Kills <strong id="killsText">0</strong></div>
+      </section>
+
+      <button id="fusionTableButton" class="hud-button" type="button" style="position:absolute;top:4px;right:4px;z-index:10;min-height:24px;padding:0 9px;font-size:12px;background:#2f3340;color:#c4b5fd;border:1px solid #5b21b6;border-radius:5px;">융합표</button>
+
+      <canvas id="gameCanvas" width="960" height="600" aria-label="one room roguelike game"></canvas>
+
+      <div id="waveToast" class="wave-toast hidden">Wave 2</div>
+      <div id="fusionToast" class="fusion-toast hidden"></div>
+
+      <section id="rewardPanel" class="overlay hidden" aria-label="choose reward">
+        <div class="modal">
+          <h1>보상 선택</h1>
+          <div id="rewardCards" class="reward-grid"></div>
+        </div>
+      </section>
+
+      <section id="shopPanel" class="overlay hidden" aria-label="shop">
+        <div class="modal">
+          <h1>상점</h1>
+          <div id="shopItems" class="shop-grid"></div>
+          <button id="closeShopButton" type="button">닫기</button>
+        </div>
+      </section>
+
+      <section id="readyPanel" class="overlay hidden" aria-label="ready countdown">
+        <div class="modal compact">
+          <h1>준비</h1>
+          <p><strong id="readyText">방향키</strong></p>
+          <p id="readyHint" class="hint">공격 방향을 누르면 다음 웨이브가 시작됩니다.</p>
+        </div>
+      </section>
+
+      <section id="startPanel" class="overlay" aria-label="start game">
+        <div class="modal">
+          <h1>One Room Roguelike</h1>
+          <p>WASD로 이동하고 방향키로 공격하세요.</p>
+          <div class="meta-currency">Shards <strong id="metaShardText">0</strong></div>
+          <div id="characterList" class="character-list"></div>
+          <div class="button-row">
+            <button id="startButton" type="button">게임 시작</button>
+            <button id="helpButton" type="button" class="secondary">설명</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="helpPanel" class="overlay hidden" aria-label="help">
+        <div class="modal">
+          <h1>게임 설명</h1>
+          <ul class="help-list">
+            <li>WASD로 이동하고 방향키로 공격합니다.</li>
+            <li>적을 잡아 XP를 모으면 레벨업 보상을 고릅니다.</li>
+            <li>골드를 모아 상점에서 하위 아이템과 최종 아이템을 삽니다.</li>
+            <li>희귀 Shards를 모으면 메인 화면에서 캐릭터를 구매합니다.</li>
+            <li>같은 타입 보상을 모으면 세트 효과가 발동합니다.</li>
+            <li>5웨이브마다 중간 보스, 10웨이브마다 진짜 보스가 나옵니다.</li>
+          </ul>
+          <button id="backToMenuButton" type="button">뒤로</button>
+        </div>
+      </section>
+
+      <section id="fusionTablePanel" class="overlay hidden" aria-label="fusion table">
+        <div class="modal" style="width:min(860px,calc(100% - 32px));max-height:82vh;overflow-y:auto;text-align:left;">
+          <h1 style="text-align:center;margin-bottom:16px;">융합탄 조합표</h1>
+          <div id="fusionTableGrid" style="overflow-x:auto;"></div>
+          <div style="text-align:center;margin-top:16px;">
+            <button id="closeFusionTableButton" type="button" class="secondary">닫기</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="gameOverPanel" class="overlay hidden" aria-label="game over">
+        <div class="modal">
+          <h1>Game Over</h1>
+          <p id="finalStats">Wave 1</p>
+          <button id="mainMenuButton" type="button">메인으로</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
