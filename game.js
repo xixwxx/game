@@ -2836,6 +2836,9 @@ function updateWaveToast(dt) {
   }
 }
 
+// 보상 1회 선택 후 닫힘(1초) 전까지 추가 선택 차단 — pointer-events는 마우스만 막고 keydown은 못 막음
+let rewardPickLocked = false;
+
 function showRewards(nextAction = "resume") {
   // 픽 한도 소진 + wave 20 이상일 때만 후기 강화 풀 사용
   // wave 20 미만에서 한도 소진하면 골드 보너스로 대체
@@ -2849,6 +2852,7 @@ function showRewards(nextAction = "resume") {
   }
   const useLatePool = state.rewardPicksRemaining <= 0;
   state.rewardNextAction = nextAction;
+  rewardPickLocked = false;
   rewardCards.innerHTML = "";
 
   const counter = document.createElement("p");
@@ -2884,6 +2888,8 @@ function createRewardCard(currentRewards, index, rerolled, upgraded = false) {
   card.role = "button";
   card.innerHTML = `<em>${tierLabels[reward.tier]}${upgraded ? " UP" : ""}</em><em class="type">${rewardTypeLabels[reward.type]}</em><strong>${reward.title}</strong><span>${reward.text}</span>${rewardSetHint(reward.type)}`;
   const selectReward = () => {
+    if (rewardPickLocked) return;
+    rewardPickLocked = true;
     // 선택한 카드 강조, 나머지 흐릿하게 (인라인 스타일로 CSS 캐시 우회)
     card.style.cssText += ";position:relative;z-index:10;transform:scale(1.18);transition:transform 0.2s ease;";
     rewardCards.querySelectorAll(".reward-card").forEach((c) => {
