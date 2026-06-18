@@ -545,14 +545,14 @@ const metaStorageKey = "oneRoomRoguelikeMeta";
 const characters = [
   {
     id: "rookie",
-    name: "기본 요리사",
+    name: "기본형",
     cost: 0,
     text: "기본 능력치로 시작합니다.",
     apply: () => {},
   },
   {
     id: "strong",
-    name: "힘센 요리사",
+    name: "화력형",
     cost: 50,
     text: "총알 피해량 +2로 시작합니다.",
     apply: (player) => {
@@ -561,7 +561,7 @@ const characters = [
   },
   {
     id: "dual",
-    name: "쌍발 요리사",
+    name: "쌍발형",
     cost: 300,
     text: "보조 탄 +1로 시작합니다.",
     apply: (player) => {
